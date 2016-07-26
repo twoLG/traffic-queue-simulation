@@ -1,7 +1,7 @@
 /**
  * @title title
  * @packagename trafficqueuesimulation
- * @filename TrafficLight.java
+ * @filename CONST.java
  * @author yhj
  * @since 2016. 7. 27.
  * @version 1.0.0.0
@@ -10,7 +10,7 @@
  *
  * DATA				AUTHOR		NOTE
  * -----------		--------	---------------------------
- * 2016. 7. 27.			yhj		Create a class.
+ * 2016. 7. 27.			yhj		Create.
  *
  */
 package trafficqueuesimulation;
@@ -20,6 +20,11 @@ package trafficqueuesimulation;
  * @since 2016. 7. 27.
  *
  */
-public class TrafficLight {
-
+public class CONST {
+	public class STRAIGHT_RANE{
+		public static final int DEFAULT_RANGE = 11;
+	}
+	public class CURVED_RANE{
+		public static final int DEFAULT_RANGE = 7;
+	}
 }
