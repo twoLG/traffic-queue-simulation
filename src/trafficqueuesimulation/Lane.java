@@ -32,7 +32,10 @@ public class Lane extends JComponent{
 	
 	Lane inputLane = null;
 	Lane outputLane = null;
+	
 	List<Car> cars = null;
+	double lambda = 0; // Number of the cars coming per time[unit / sec-1]
+	
 	boolean onGreenLight = false;
 	
 }
