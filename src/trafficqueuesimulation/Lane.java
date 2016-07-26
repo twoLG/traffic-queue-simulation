@@ -93,20 +93,20 @@ class StraightLane extends Lane{
 			int y = inputCoordinates.getValue();
 			int width = rangeOfWhiteLine;
 			int height = outputCoordinates.getValue() - y;
-			g.fillRect(x, y, width, height); // Left Line
+			//g.fillRect(x, y, width, height); // Left Line
 			
 			x = inputCoordinates.getKey() + range/2;
 			y = inputCoordinates.getValue();
 			width = rangeOfWhiteLine;
 			height = outputCoordinates.getValue() - y;
-			g.fillRect(x, y, width, height); // Right Line
-		
+			//g.fillRect(x, y, width, height); // Right Line
+			
 			g.setColor(Color.gray);
 			x = inputCoordinates.getKey()-range/2 + rangeOfWhiteLine;
 			y = inputCoordinates.getValue();
 			width = range - rangeOfWhiteLine;
 			height = outputCoordinates.getValue() - y;
-			g.fillRect(x, y, width, height); // Left Line
+			//g.fillRect(x, y, width, height); // Line
 			
 		}
 	}
