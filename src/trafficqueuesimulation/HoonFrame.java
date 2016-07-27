@@ -40,62 +40,38 @@ class HoonPanel extends JPanel implements MouseListener{
 	
 	public int[][] arrdata=new int[22][22];
 	
+	public HoonPanel(){
+		super();
+		this.addMouseListener(this);
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		this.tempCar.paintComponent(g);
-		//this.tempSLane.paintComponent(g);
-		
-		for(int i=0;i<12;i++) {
-			for(int j=0;j<12;j++) {
-				if(arrdata[i][j]==1) {
-					
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 12; j++) {
+				if (arrdata[i][j] == 1) {
 					g.setColor(Color.gray);
-					int x = 64*i;
-					int y = 64*j;
-					g.fillRect(x, y, 64, 64);
+				} else {
+					g.setColor(Color.yellow);
 				}
-				else {
-					g.setColor(Color.blue);
-					int x = 64*i;
-					int y = 64*j;
-					g.fillRect(x, y, 64, 64);
-				}
+				int x = 64 * i;
+				int y = 64 * j;
+				g.fillRect(x, y, 64, 64);
 			}
 		}
+
+		this.tempCar.paintComponent(g);
+		this.tempSLane.paintComponent(g);
 		
-		g.setColor(Color.PINK);
-		g.fillOval(300, 300, 100, 100);
+
+		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		double x=e.getX();
-		double y=e.getY();
-		
-		if(arrdata[(int)(x/64)][(int)(y/64)]==0) {
-			arrdata[(int)(x/64)][(int)(y/64)]=1;
-		}
-		else {
-			arrdata[(int)(x/64)][(int)(y/64)]=0;
-		}
 
-		for(int i=0;i<12;i++) {
-			for(int j=0;j<12;j++) {
-				if(arrdata[i][j]==1) {
-					System.out.print("1 ");
-				}
-				else {
-					System.out.print("0 ");
-				}
-			}
-			
-			System.out.print("\n");
-		}
-		
-		repaint();
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -111,6 +87,16 @@ class HoonPanel extends JPanel implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+		int x=e.getX();
+		int y=e.getY();
+		
+		if (arrdata[x / 64][y / 64] == 0) {
+			arrdata[x / 64][y / 64] = 1;
+		} else {
+			arrdata[x / 64][y / 64] = 0;
+		}
+
+		repaint();
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -131,17 +117,17 @@ public class HoonFrame extends JFrame implements Runnable{
 	public HoonFrame(){
 		this.setLayout(new BorderLayout());
 			downPanel = new JPanel();
-			downPanel.setBackground(Color.RED);
+			downPanel.setBackground(Color.darkGray);
 			downPanel.setVisible(true);
 			this.add(downPanel, BorderLayout.SOUTH);
 			
 			leftPanel = new JPanel();
-			leftPanel.setBackground(Color.GREEN);
+			leftPanel.setBackground(Color.gray);
 			leftPanel.setVisible(true);
 			this.add(leftPanel, BorderLayout.EAST);
 			
 			mainPanel = new HoonPanel();
-			mainPanel.setBackground(Color.CYAN);
+			mainPanel.setBackground(Color.cyan);
 			mainPanel.setVisible(true);
 			mainPanel.addMouseListener(new HoonPanel());
 			this.add(mainPanel, BorderLayout.CENTER);
