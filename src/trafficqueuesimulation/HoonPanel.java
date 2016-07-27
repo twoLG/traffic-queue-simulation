@@ -49,13 +49,7 @@ public class HoonPanel extends JPanel implements MouseListener{
 			}
 		}
 		/*********************temp******************************/
-		StraightLane tempSLane = new StraightLane(true,
-				new Pair<Integer, Integer>(160, 192), new Pair<Integer, Integer>(160, 256));
-		
-		tempSLane.cars.add(new Car(new Pair<Integer, Integer>(160, 70)));
-		
-		gridRectangles[2][3].gridLane = tempSLane;
-
+		gridRectangles[2][3].addStraightLane(true);
 		/*********************temp******************************/
 	}
 	
@@ -92,11 +86,13 @@ public class HoonPanel extends JPanel implements MouseListener{
 		int x=e.getX();
 		int y=e.getY();
 		
-//		if (arrdata[x / 64][y / 64] == 0) {
-//			arrdata[x / 64][y / 64] = 1;
-//		} else {
-//			arrdata[x / 64][y / 64] = 0;
-//		}
+		if (gridRectangles[x / 64][y / 64].getGridLane() == null) {
+			gridRectangles[x / 64][y / 64].addStraightLane(true);
+		} else if( gridRectangles[x / 64][y / 64].getGridLane().isVertical() ){
+			gridRectangles[x / 64][y / 64].addStraightLane(false);
+		}else{
+			gridRectangles[x / 64][y / 64].setGridLane(null);
+		}
 
 		repaint();
 	}
@@ -157,6 +153,27 @@ class GridRectangle extends JComponent{
 		innerColor1 = Color.green;
 		innerColor2 = new Color(210, 230, 210);
 		lineColor = Color.yellow;
+	}
+	
+	public void addStraightLane(boolean vertical){
+		
+		if( vertical ){
+			int inputX = this.x + this.width/2;
+			int inputY = this.y;
+			int outputX = this.x + this.width/2;
+			int outputY = this.y + this.height;
+			
+			this.setGridLane(new StraightLane(true, new Pair<Integer, Integer>(inputX, inputY),
+					new Pair<Integer, Integer>(outputX, outputY)));
+		}else{
+			int inputX = this.x;
+			int inputY = this.y + this.height/2;
+			int outputX = this.x + this.width;
+			int outputY = this.y + this.height/2;
+			
+			this.setGridLane(new StraightLane(false, new Pair<Integer, Integer>(inputX, inputY),
+					new Pair<Integer, Integer>(outputX, outputY)));
+		}
 	}
 	
 	

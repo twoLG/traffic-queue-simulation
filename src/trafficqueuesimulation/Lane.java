@@ -59,16 +59,28 @@ public class Lane extends JComponent{
 			car.paintComponent(g);
 		}
 	}
+
+	/**
+	 * 
+	 * @return false
+	 * 
+	 * It only return true when it is overrided by StraightLane Object with vertical is true.
+	 */
+	public boolean isVertical() {
+		return false;
+	}
 	
 }
 
 class StraightLane extends Lane{
 	
-	boolean vertical = false; // A straight lane can be only horizontal[false] or vertical[true].
+	private boolean vertical = false; // A straight lane can be only horizontal[false] or vertical[true].
 	Pair<Integer, Integer> inputCoordinates = null; // It must be same with inputLane's outputCoordinates if inputLane exists.
 	Pair<Integer, Integer> outputCoordinates = null; // It must be same with outputLane's inputCoordinates if inputLane exists.
 	int range = 0; // Range of the lane.
 	
+	@Override
+	public boolean isVertical() { return vertical; }
 	
 	public Pair<Integer, Integer> getInputCoordinates() { return inputCoordinates; }
 	public Pair<Integer, Integer> getOutputCoordinates() { return outputCoordinates; }
@@ -97,9 +109,9 @@ class StraightLane extends Lane{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+
+		int rangeOfWhiteLine = 6;
 		if( vertical ){
-			int rangeOfWhiteLine = 6;
-			
 			g.setColor(Color.white);
 			
 			int x = inputCoordinates.getKey() - range/2;
@@ -119,8 +131,29 @@ class StraightLane extends Lane{
 			y = inputCoordinates.getValue();
 			width = range - rangeOfWhiteLine;
 			height = outputCoordinates.getValue() - y;
-			g.fillRect(x, y, width, height); // Line
+			g.fillRect(x, y, width, height); // Lane
 			
+		}else{
+			g.setColor(Color.white);
+			
+			int x = inputCoordinates.getKey();
+			int y = inputCoordinates.getValue() - range/2;
+			int width = outputCoordinates.getKey() - x;
+			int height = rangeOfWhiteLine;
+			g.fillRect(x, y, width, height); // Upper Line
+			
+			x = inputCoordinates.getKey();
+			y = inputCoordinates.getValue() + range/2;
+			width = outputCoordinates.getKey() - x;
+			height = rangeOfWhiteLine;
+			g.fillRect(x, y, width, height); // Under Line
+			
+			g.setColor(Color.gray);
+			x = inputCoordinates.getKey();
+			y = inputCoordinates.getValue() - range/2 + rangeOfWhiteLine;
+			width = outputCoordinates.getKey() - x;
+			height = range - rangeOfWhiteLine;
+			g.fillRect(x, y, width, height); // Lane			
 			
 		}
 	}
