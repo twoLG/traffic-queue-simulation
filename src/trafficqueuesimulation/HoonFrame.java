@@ -18,6 +18,7 @@ package trafficqueuesimulation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -33,78 +34,7 @@ import javafx.util.Pair;
  * It implements Runnable to call repaint() anytime.
  *
  */
-class HoonPanel extends JPanel implements MouseListener{
-	public Car tempCar = new Car(new Pair<Integer, Integer>(30, 70));
-	public StraightLane tempSLane = new StraightLane(true,
-			new Pair<Integer, Integer>(100, 100), new Pair<Integer, Integer>(100, 300) );
-	
-	public int[][] arrdata=new int[22][22];
-	
-	public HoonPanel(){
-		super();
-		this.addMouseListener(this);
-	}
-	
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 12; j++) {
-				if (arrdata[i][j] == 1) {
-					g.setColor(Color.gray);
-				} else {
-					g.setColor(Color.yellow);
-				}
-				int x = 64 * i;
-				int y = 64 * j;
-				g.fillRect(x, y, 64, 64);
-			}
-		}
 
-		this.tempCar.paintComponent(g);
-		this.tempSLane.paintComponent(g);
-		
-
-		
-	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-		int x=e.getX();
-		int y=e.getY();
-		
-		if (arrdata[x / 64][y / 64] == 0) {
-			arrdata[x / 64][y / 64] = 1;
-		} else {
-			arrdata[x / 64][y / 64] = 0;
-		}
-
-		repaint();
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-}
 public class HoonFrame extends JFrame implements Runnable{
 
 	JPanel downPanel = null;
@@ -124,7 +54,7 @@ public class HoonFrame extends JFrame implements Runnable{
 			leftPanel = new JPanel();
 			leftPanel.setBackground(Color.gray);
 			leftPanel.setVisible(true);
-			this.add(leftPanel, BorderLayout.EAST);
+			this.add(leftPanel, BorderLayout.WEST);
 			
 			mainPanel = new HoonPanel();
 			mainPanel.setBackground(Color.cyan);
@@ -145,6 +75,7 @@ public class HoonFrame extends JFrame implements Runnable{
 		Thread painter = new Thread(myFrame);
 		painter.start();
 
+		
 	}
 
 	
@@ -154,7 +85,7 @@ public class HoonFrame extends JFrame implements Runnable{
 			this.repaint();
 			
 			try {
-				Thread.sleep(100);
+				Thread.sleep(300);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -167,6 +98,6 @@ public class HoonFrame extends JFrame implements Runnable{
 		Graphics g = this.getGraphics();
 		this.downPanel.repaint();
 		this.leftPanel.repaint();
-		this.mainPanel.paintComponent(g);
+		this.mainPanel.repaint();
 	}
 }

@@ -17,6 +17,7 @@ package trafficqueuesimulation;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -44,8 +45,20 @@ public class Lane extends JComponent{
 	public void setInputLane(Lane inputLane) { this.inputLane = inputLane; }
 	public void setOutputLane(Lane outputLane) { this.outputLane = outputLane; }
 	
+	public Lane(){
+		super();
+		cars = new ArrayList<Car>();
+		
+	}
 	
-	
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		
+		for(Car car : cars){
+			car.paintComponent(g);
+		}
+	}
 	
 }
 
@@ -81,7 +94,7 @@ class StraightLane extends Lane{
 	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		if( vertical ){
@@ -93,20 +106,21 @@ class StraightLane extends Lane{
 			int y = inputCoordinates.getValue();
 			int width = rangeOfWhiteLine;
 			int height = outputCoordinates.getValue() - y;
-			//g.fillRect(x, y, width, height); // Left Line
+			g.fillRect(x, y, width, height); // Left Line
 			
 			x = inputCoordinates.getKey() + range/2;
 			y = inputCoordinates.getValue();
 			width = rangeOfWhiteLine;
 			height = outputCoordinates.getValue() - y;
-			//g.fillRect(x, y, width, height); // Right Line
+			g.fillRect(x, y, width, height); // Right Line
 			
 			g.setColor(Color.gray);
 			x = inputCoordinates.getKey()-range/2 + rangeOfWhiteLine;
 			y = inputCoordinates.getValue();
 			width = range - rangeOfWhiteLine;
 			height = outputCoordinates.getValue() - y;
-			//g.fillRect(x, y, width, height); // Line
+			g.fillRect(x, y, width, height); // Line
+			
 			
 		}
 	}
